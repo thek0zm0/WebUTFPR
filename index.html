@@ -3,12 +3,13 @@
 <head>
 	<title>Wikipedia</title>
 	<link rel="stylesheet" type="text/css" href="wikipedia.css">
+	<meta name="viewport" content="initial-scale=1,user-scalable=yes">
 </head>
 <body>
 	<!-- Página divida em 3 partes --> 
 	<div class="topo">
 		<h1>Wikipedia</h1>
-		<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Wikipedia_wordmark_Candidate.svg" class="letreiro">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Wikipedia_wordmark_Candidate.svg" alt="logo" class="letreiro">
 		<p>The Free Encyclopedia</p>
 		<img src="https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png" alt="wikipedia" class="imagem">
 	</div>
@@ -90,7 +91,17 @@
 	</div>
 
 	<div class="abaixo">
-
+		<div class="busca">
+			<div class="busca_bg">
+				<input type="text" class="inputText">
+				<select class="selectIdioma"> 
+					<option>EN</option>
+				</select>
+			</div>
+		</div>
+		<div class="botaoSearch">
+			<img src="search.png" alt="Search Icon" class="searchIcon">
+		</div>
 	</div>
 
 </body>
