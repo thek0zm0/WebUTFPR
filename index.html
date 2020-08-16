@@ -2,102 +2,97 @@
 <html>
 <head>
 	<title>Wikipedia</title>
-	<link rel="stylesheet" type="text/css" href="wikipedia.css">
+	<link rel="stylesheet" type="text/css" href="wikipedia2.css">
 	<script src="https://kit.fontawesome.com/55d27a17ba.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<!-- 3 divisões, uma para o top e duas separados no centro
-	-->
-	<div class="top">
-		<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Wikipedia_wordmark_Candidate.svg" class="img_wikipedia">
-		<h1>The Free Encyclopedia</h1>
+	<!-- Página divida em 3 partes --> 
+	<div class="topo">
+		<h1>Wikipedia</h1>
+		<img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Wikipedia_wordmark_Candidate.svg" class="letreiro">
+		<p>The Free Encyclopedia</p>
+		<img src="https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png" alt="wikipedia" class="imagem">
 	</div>
 
 	<div class="centro">
-	<ul class="esquerda">
+		<!-- div para cada língua(1 até n) 
+			 href para hover com o mouse -->
+		<!-- Inglês -->
+		<div class="idioma">
+			<a class="link" href="//en.wikipedia.org/" title="English — Wikipedia — The Free Encyclopedia">
+				<h2>English</h2>
+				<p class="artigos">1 612 000+ artículos</p>
+			</a>
+		</div>
+		<!-- Espanhol -->
+		<div class="idioma">
+			<a class="link" href="//es.wikipedia.org/" title="Español — Wikipedia — La enciclopedia libre">
+				<h2>Español</h2>
+				<p class="artigos">1 612 000+ artículos</p>
+			</a>
+		</div>
+		<!-- Russo -->
+		<div class="idioma">
+			<a class="link" href="//ru.wikipedia.org/" title="Russkiy — Википедия — Свободная энциклопедия">
+				<h2>Русский</h2>
+				<p class="artigos">1 644 000+ статей</p>
+			</a>
+		</div>
+		<!-- Italiano -->
+		<div class="idioma">
+			<a class="link" href="//it.wikipedia.org/" title="Italiano — Wikipedia — L&#x27;enciclopedia libera">
+				<h2>Italiano</h2>
+				<p class="artigos">1 623 000+ voci</p>
+			</a>
+		</div>
+		<!-- Português -->
+		<div class="idioma">
+			<a class="link" href="//pt.wikipedia.org/" title="Português — Wikipédia — A enciclopédia livre">
+				<h2>Português</h2>
+				<p class="artigos">1 039 000+ artigos</p>
+			</a>
+		</div>
 
-		<!-- 
-			 -Href é o destino do link
-			 -Title é o texto que aparece quando passo o mouse por cima
-			 -Curiosamente, consegui utilizar caracteres de várias linguas diferentes. Achei que não poderia...
-		-->
-
-		<li><a class="link" href="//en.wikipedia.org/" title="English — Wikipedia — The Free Encyclopedia">
-			<strong class="lingua">English</strong>
-			<br>
-			<small class="artigos">6 125 000+ articles</small>
-		</a></li>
-
-		<li><a class="link" href="//es.wikipedia.org/" title="Español — Wikipedia — La enciclopedia libre">
-			<strong class="lingua">Español</strong>
-			<br>
-			<small class="artigos">1 612 000+ artículos</small>
-		</a></li>
-
-		<li><a class="link" href="//ru.wikipedia.org/" title="Russkiy — Википедия — Свободная энциклопедия">
-			<strong class="lingua">Русский</strong>
-			<br>
-			<small class="artigos">1 644 000+ статей</small>	
-		</a></li>
-
-		<li><a class="link" href="//it.wikipedia.org/" title="Italiano — Wikipedia — L&#x27;enciclopedia libera">
-			<strong class="lingua">Italiano</strong>
-			<br>
-			<small class="artigos">1 623 000+ voci</small>
-		</a></li>
-
-		<li><a class="link" href="//pt.wikipedia.org/" title="Português — Wikipédia — A enciclopédia livre">
-			<strong class="lingua">Português</strong>
-			<br>
-			<small class="artigos">1 039 000+ artigos</small>
-		</a></li>
-
-	</ul>
-	<ul class="direita">
-
-		<li><a class="link" href="//ja.wikipedia.org/" title="Nihongo — ウィキペディア — フリー百科事典">
-			<strong class="lingua">日本語</strong>
-			<br>
-			<small class="artigos">1 128 000+ 記事</small>
-		</a></li>
-
-		<li><a class="link" href="//de.wikipedia.org/" title="Deutsch — Wikipedia — Die freie Enzyklopädie">
-			<strong class="lingua">Deutsch</strong>
-			<br>
-			<small class="artigos">2 458 000+ Artikel</small>
-		</a></li>
-
-		<li><a class="link" href="//fr.wikipedia.org/" title="Français — Wikipédia — L’encyclopédie libre">
-			<strong class="lingua">Français</strong>
-			<br>
-			<small class="artigos">2 236 000+ articles</small>
-		</a></li>
-
-		<li><a class="link" href="//zh.wikipedia.org/" title="Zhōngwén — 維基百科 — 自由的百科全書">
-			<strong class="lingua">中文</strong>
-			<br>
-			<small class="artigos">1 130 000+ 條目</small>		
-		</a></li>
-
-		<li><a class="link" href="//pl.wikipedia.org/" title="Polski — Wikipedia — Wolna encyklopedia">
-			<strong class="lingua">Polski</strong>
-			<br>
-			<small class="artigos">1 420 000+ hasel</small>
-		</a></li>
-	</ul>
-	</div>
-	<div class="abaixo">
-		<div class="caixa">
-			<input class="pesquisa" type="text" name="pesquisa">
-			<select> 
-				<option>EN</option>
-			</select>
-			<button><i class="fas fa-search"></i></button>
+		<!-- Japonês -->
+		<div class="idioma">
+			<a class="link" href="//ja.wikipedia.org/" title="Nihongo — ウィキペディア — フリー百科事典">
+				<h2>日本語</h2>
+				<p class="artigos">1 128 000+ 記事</p>
+			</a>
+		</div>
+		<!-- Alemão -->
+		<div class="idioma">
+			<a class="link" href="//de.wikipedia.org/" title="Deutsch — Wikipedia — Die freie Enzyklopädie">
+				<h2>Deutsch</h2>
+				<p class="artigos">2 458 000+ Artikel</p>
+			</a>
+		</div>
+		<!-- Francês -->
+		<div class="idioma">
+			<a class="link" href="//fr.wikipedia.org/" title="Français — Wikipédia — L’encyclopédie libre">
+				<h2>Français</h2>
+				<p class="artigos">2 236 000+ articles</p>
+			</a>
+		</div>
+		<!-- Chinês -->
+		<div class="idioma">
+			<a class="link" href="//zh.wikipedia.org/" title="Zhōngwén — 維基百科 — 自由的百科全書">
+				<h2>中文</h2>
+				<p class="artigos">1 130 000+ 條目</p>
+			</a>
+		</div>
+		<!-- Polonês -->
+		<div class="idioma">
+			<a class="link" href="//pl.wikipedia.org/" title="Polski — Wikipedia — Wolna encyklopedia">
+				<h2>Polski</h2>
+				<p class="artigos">1 420 000+ hasel</p>
+			</a>
 		</div>
 	</div>
 
+	<div class="abaixo">
 
-	
+	</div>
 
 </body>
 </html>
