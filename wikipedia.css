@@ -15,7 +15,7 @@ body
 	margin: .4rem 0 1.6rem 0;
 }
 
-@media only screen (max-width: 480px)
+@media only screen and (max-width: 480px)
 {
 	.topo
 	{
@@ -84,6 +84,60 @@ h1
 	max-width: 100%;
 	vertical-align: middle;
 }
+
+.busca {
+	display: flex;
+	justify-content: center;
+}
+
+.searchIcon {
+	width: 22px;
+	height: 26px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+.botaoSearch {
+	background-color: #447ff5;
+	width: 54px;
+	height: 42px;
+	display: flex;
+	align-items: center;
+}
+
+.selectIdioma {
+	margin-left: 8px;
+	margin-right: 8px;
+	border: 0px;
+}
+
+.busca_bg {
+	height: 40px;
+	border: 1px solid #447ff5;
+}
+
+.inputText {
+	height: 26px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	border: 0px;
+}
+
+.seletorIdioma {
+	width: 48px;
+	height: 24px;
+	text-align: center;
+}
+
+.abaixo
+{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
 
 /* retirando a formatação de h2 e p */
 
@@ -182,9 +236,4 @@ a
 {
 	top: 80%;
 	left: 60%;
-}
-s
-.abaixo
-{
-	text-align: center;
 }
