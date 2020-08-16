@@ -13,7 +13,33 @@ body
 	line-height: 1.5;
 	/* --top right bottom left */
 	margin: .4rem 0 1.6rem 0;
-	min-width: 490px;
+}
+
+@media only screen (max-width: 480px)
+{
+	.topo
+	{
+		display: inline-block;
+		vertical-align: bottom;
+	}
+	.centro
+	{
+		position: relative;
+		margin: 4rem auto .5rem;
+		width: 270px;
+	}
+	.imagem
+	{
+		display: inline-block;
+		overflow: hidden;
+		text-indent: -10000px;
+	}
+	.letreiro
+	{
+		position: absolute;
+		top:158px;
+		left: 35px;
+	}
 }
 
 h1
