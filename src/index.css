@@ -21,6 +21,23 @@ h1
 	display: none;
 }
 
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	background-color: #2ec1ac;
+	padding: 16px;
+}
+
+.login {
+	display: flex;
+	flex-direction: column;
+}
+
+.header input {
+	width: 300px;
+}
+
 .topo
 {
 	margin: 40px auto 5px auto;
