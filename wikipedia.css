@@ -13,6 +13,7 @@ body
 	line-height: 1.5;
 	/* --top right bottom left */
 	margin: 4px 0 16px 0;
+	overflow-x: hidden;
 }
 
 h1
@@ -323,3 +324,12 @@ a
 		right: 0;
 	}
 }
+
+/* Caixa de Resultados dos Animes */
+
+#search-results
+{
+	display: flex;
+	overflow-x: scroll;
+}
+
