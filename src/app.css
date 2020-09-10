@@ -29,14 +29,51 @@ h1
 	padding: 16px;
 }
 
+.loggedin {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.loggedin-off {
+	display: none;
+}
+
+.login-submit {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .login {
 	display: flex;
 	flex-direction: column;
 }
 
-.header input {
-	width: 300px;
+.login-off {
+	display: none;
 }
+
+.login input {
+	margin-top: 4px;
+	margin-bottom: 4px;
+	width: 300px;
+	border-radius: 4px;
+}
+
+.login h3 {
+	margin: 0;
+}
+
+.login input[type=submit] {
+	width: 150px;
+	height: 28px;
+	background-color: #2ea44f;
+	color: white;
+	font-weight: bold;
+	font-size: 1.6rem;
+}
+
 
 .topo
 {

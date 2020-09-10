@@ -1,30 +1,44 @@
 import React, { Component } from 'react'
 import './api.css'
-const base_url = "https://api.jikan.moe/v3";
-
+const base_url = "https://api.jikan.moe/v3"
 
 export default class Api extends Component {
 
-    /* Cuidado de handler */
-    handleSubmit = (e) => {
-        e.preventDefault(); 
-        const username = e.target.elements.username.value;
-        localStorage.setItem('myUsername', username);
-        window.location.reload();
-      }
-    
-      handleLogout = () => {
-        localStorage.removeItem('myUsername');
-        window.location.reload();
-      }
-    
+    localUsername = localStorage.getItem('myUsername') || ""
+    localPassword = localStorage.getItem('myPassword') || ""
+
     state = {
-        searchTextValue: 'Lala'
+        searchTextValue: '',
     }
 
+    onCreateAccount = () => {
+        if(this.props.username === "" || this.props.password === "") return
+        localStorage.setItem('myUsername', this.props.username)
+        localStorage.setItem('myPassword', this.props.password)
+        this.localUsername = this.props.username
+        this.localPassword = this.props.password
+        this.onLogin()
+    }
+    
+    onLogin = () => {
+        if(this.props.username === this.localUsername && this.props.password === this.localPassword) {
+            localStorage.setItem('onLogin', true)
+            this.props.setLoggedin(true)
+            console.log('Logged in');
+        }
+        else {
+            console.log('Logged failed');
+        }
+    }
+
+    onLogout = () => {
+        localStorage.setItem('onLogin', false)
+        this.props.setLoggedin(false)
+    }
+    
     onChangeText(event) {
         this.setState({ searchTextValue: event.target.value });
-      }
+    }
 
     searchAnime(event)
     {
@@ -37,14 +51,13 @@ export default class Api extends Component {
     
     updateDom(data)
     {
-        const searchResults = document.getElementById('search-results');
-    
+        const searchResults = document.getElementById('search-results')
         searchResults.innerHTML = data.results 
             .map(anime=>{
                 return `
-                    <div class="resultadoAnimes">
-                        <h5 class="tituloAnime">${anime.title}</h5>
-                        <img src="${anime.image_url}" class="imagemAnime">
+                    <div classname="resultadoAnimes">
+                        <h5 classname="tituloAnime">${anime.title}</h5>
+                        <img src="${anime.image_url}" classname="imagemAnime">
                         <p>${anime.synopsis}</p>
                         <a href="${anime.url}">Link Página do Anime</a>
                     </div>
@@ -52,50 +65,31 @@ export default class Api extends Component {
             })
     }
 
-
     render() {
         /* Mostrar API de animes apenas se estiver logado */
-        const username = localStorage.getItem('myUsername');
-        if (username !== null) {
-        return (
-            <>
-                <form id="search_form" className="searchForm">
-                    <label htmlFor="search">Digite o nome do anime</label>
-                    <input type="text" 
-                        onChange={this.onChangeText.bind(this)}
-                        onSubmit={this.searchAnime.bind(this)}
-                    />
-                    <button onClick={this.searchAnime.bind(this)}>Search</button>
-                </form>
-        
-                <div id="search-results"></div>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>        
-            </>
-        );
+        if(this.props.loggedIn) {
+            return (
+                <>
+                    <form id="search_form" className="searchForm">
+                        <label htmlFor="search">Digite o nome do anime</label>
+                        <input type="text" 
+                            onChange={this.onChangeText.bind(this)}
+                            onSubmit={this.searchAnime.bind(this)}
+                        />
+                        <button onClick={this.searchAnime.bind(this)}>Search</button>
+                    </form>
+            
+                    <div id="search-results"></div>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>        
+                </>
+            );
         }
-        return (
-        <form onSubmit={this.handleSubmit}>
-            <input  type="text" name="username" placeholder="Nome de usuário" required />
-            <button type="submit">Entrar</button>
-        </form>
-    );
-        /*
-        return(
-            <>
-                <form id="search_form" className="searchForm">
-                    <label htmlFor="search">Digite o nome do anime</label>
-                    <input type="text" 
-                        onChange={this.onChangeText.bind(this)}
-                        onSubmit={this.searchAnime.bind(this)}
-                    />
-                    <button onClick={this.searchAnime.bind(this)}>Search</button>
-                </form>
-        
-                <div id="search-results"></div>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>        
-            </>
-        )
-        */
+        else {
+            return (
+                <>
+                </>
+            );
+        }
     }
 } 
 
