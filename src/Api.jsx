@@ -4,38 +4,18 @@ const base_url = "https://api.jikan.moe/v3"
 
 export default class Api extends Component {
 
-    localUsername = localStorage.getItem('myUsername') || ""
-    localPassword = localStorage.getItem('myPassword') || ""
-
     state = {
         searchTextValue: '',
+        animes: []
     }
 
-    onCreateAccount = () => {
-        if(this.props.username === "" || this.props.password === "") return
-        localStorage.setItem('myUsername', this.props.username)
-        localStorage.setItem('myPassword', this.props.password)
-        this.localUsername = this.props.username
-        this.localPassword = this.props.password
-        this.onLogin()
-    }
-    
-    onLogin = () => {
-        if(this.props.username === this.localUsername && this.props.password === this.localPassword) {
-            localStorage.setItem('onLogin', true)
-            this.props.setLoggedin(true)
-            console.log('Logged in');
-        }
-        else {
-            console.log('Logged failed');
-        }
+    constructor() {
+        super()
+        this.updateDom = this.updateDom.bind(this)
+        this.searchAnime = this.searchAnime.bind(this)
+        this.onChangeText = this.onChangeText.bind(this)
     }
 
-    onLogout = () => {
-        localStorage.setItem('onLogin', false)
-        this.props.setLoggedin(false)
-    }
-    
     onChangeText(event) {
         this.setState({ searchTextValue: event.target.value });
     }
@@ -51,18 +31,7 @@ export default class Api extends Component {
     
     updateDom(data)
     {
-        const searchResults = document.getElementById('search-results')
-        searchResults.innerHTML = data.results 
-            .map(anime=>{
-                return `
-                    <div classname="resultadoAnimes">
-                        <h5 classname="tituloAnime">${anime.title}</h5>
-                        <img src="${anime.image_url}" classname="imagemAnime">
-                        <p>${anime.synopsis}</p>
-                        <a href="${anime.url}">Link Página do Anime</a>
-                    </div>
-                    `
-            })
+        this.setState({ animes: data.results })
     }
 
     render() {
@@ -73,13 +42,24 @@ export default class Api extends Component {
                     <form id="search_form" className="searchForm">
                         <label htmlFor="search">Digite o nome do anime</label>
                         <input type="text" 
-                            onChange={this.onChangeText.bind(this)}
-                            onSubmit={this.searchAnime.bind(this)}
+                            onChange={this.onChangeText }
+                            onSubmit={this.searchAnime }
                         />
-                        <button onClick={this.searchAnime.bind(this)}>Search</button>
+                        <button onClick={this.searchAnime }>Search</button>
                     </form>
             
-                    <div id="search-results"></div>
+                    <div className="search-results">
+                    {
+                        this.state.animes.map((anime, index) => 
+                            <div key={ index } className="anime">
+                                <h5>{anime.title}</h5>
+                                <img src={anime.image_url} alt=""/>
+                                <p>{anime.synopsis}</p>
+                                <a href={anime.url}>Link Página do Anime</a>
+                            </div>
+                        )
+                    }
+                    </div>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>        
                 </>
             );
