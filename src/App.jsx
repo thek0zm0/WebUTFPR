@@ -18,7 +18,8 @@ export default class App extends Component {
         username: "",
         password: "",
         token: "",
-        loggedIn: false
+        loggedIn: false,
+        failLogin: false
     }
 
     constructor() {
@@ -41,13 +42,14 @@ export default class App extends Component {
         Axios.post("https://reqres.in/api/login", { email: this.state.username, password: this.state.password }).then(
             resp => {
                 localStorage.setItem('onLogin', true)
-                localStorage.setItem('token', resp.token)
+                localStorage.setItem('token', resp.data.token)
                 this.setLoggedin(true)
-                this.setState({ token: resp.data.token })
+                this.setState({ token: resp.data.token, failLogin: false })
                 console.log('Logged in');
             }
         ).catch(
             error => {
+                this.setState({ failLogin: true})
                 console.log(error);
             }
         )
@@ -86,6 +88,9 @@ export default class App extends Component {
                         <input type="text" onChange={e => this.onChangeUsername(e) }></input>
                         <h3>Password: </h3>
                         <input type="password" onChange={e => this.onChangePassword(e)}></input>
+                        <div className="senha-email-invalido">
+                            <h4>{ this.state.failLogin ? "Senha ou e-mail inválido" : "" }</h4>
+                        </div>
                         <div className="login-submit">
                             <input type="submit" value="Login" 
                                 onClick={() => this.onLogin() }>

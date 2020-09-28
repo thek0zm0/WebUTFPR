@@ -196,3 +196,12 @@ body
 	overflow-x: scroll;
 }
 
+.senha-email-invalido {
+    color: red;
+    text-align: center;
+}
+
+.senha-email-invalido h4 {
+    margin: 0;
+}
+
