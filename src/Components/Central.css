@@ -1,0 +1,10 @@
+.centro
+{
+	position: relative;
+	height: 325px;
+	width: 546px;
+	margin: 0 auto;
+	text-align: center;
+	max-width: 100%;
+	vertical-align: middle;
+}

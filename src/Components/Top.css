@@ -1,0 +1,41 @@
+.topo
+{
+	margin: 40px auto 5px auto;
+	/* largura */
+	width: 270px;
+	font-family: serif;
+	/* define o quão bold a font é */ 
+	font-weight: 400;
+	/* centraliza o texto */
+	text-align: center;
+	position: relative;
+}
+
+.imagem
+{
+	/* absolute posiciona conforme o elemtno pai */
+	position: absolute;
+	top: 158px;
+	left: 35px;
+}
+
+.letreiro {
+	width: 176px;
+	height: 32px;
+}
+
+h1
+{
+	display: none;
+}
+
+@media only screen and (max-width: 320px)
+{
+	.topo
+	{
+		margin: 20px 0 0 20px;
+		height: 70px;
+		width: auto;
+		padding: 0;
+	}
+}
