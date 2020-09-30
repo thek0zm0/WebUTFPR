@@ -23,15 +23,28 @@ export default class Cadastro extends React.Component {
         this.setState({ password: event.target.value })
     }
 
-    onCreateAccount = () => {
-        if(this.state.username.length <= 3) {
-            this.setState({ errorEmail: "E-mail inválido" })
+    onValidation = () => {
+        let retorno = true
+        if(this.state.username.length <= 3 || !this.state.username.includes('@')) {
+            this.setState({ errorEmail: "e-mail inválido" })
+            retorno = false
+        }
+        else {
+            this.setState({ errorEmail: "" })
         }
         if(this.state.password.length <= 3) {
-            this.setState({ errorPassword: "Deve conter mais que 3 caracteres" })
+            this.setState({ errorPassword: "deve conter mais que 4 caracteres" })
+            retorno = false
         }
-        if(this.state.username.length <= 3 || this.state.password.length <= 3) return
-        this.setState({ errorEmail: "", errorPassword: "" })
+        else {
+            this.setState({ errorPassword: "" })
+        }
+
+        return retorno
+    }
+
+    onCreateAccount = () => {
+        if(!this.onValidation()) return
 
         Axios.post("https://reqres.in/api/register", { email: this.state.username, password: this.state.password }).then(
             resp => {
@@ -59,7 +72,7 @@ export default class Cadastro extends React.Component {
                     <CadastroSuccess log="Cadastro realizado com sucesso!"></CadastroSuccess>
                 </If>
                 <If condition={ this.state.cadStep === 2 }>
-                    <CadastroSuccess log="Erro no cadastro!"></CadastroSuccess>
+                    <CadastroSuccess log="Erro: 400"></CadastroSuccess>
                 </If>
                 <If condition={ this.state.cadStep === 0 }>
                     <div>

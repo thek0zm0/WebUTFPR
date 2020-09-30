@@ -19,7 +19,9 @@ export default class App extends Component {
         password: "",
         token: "",
         loggedIn: false,
-        failLogin: false
+        failLogin: false,
+        errorEmail: "",
+        errorPassword: ""
     }
 
     constructor() {
@@ -30,6 +32,7 @@ export default class App extends Component {
         this.onChangeUsername = this.onChangeUsername.bind(this)
         this.onChangePassword = this.onChangePassword.bind(this)
         this.setLoggedin = this.setLoggedin.bind(this)
+        this.onValidation = this.onValidation.bind(this)
 
         this.state.loggedIn = (localStorage.getItem('onLogin') === 'true')
         if(this.state.loggedIn){
@@ -38,7 +41,29 @@ export default class App extends Component {
         }
     }
 
+    onValidation = () => {
+        let retorno = true
+        if(this.state.username.length <= 3 || !this.state.username.includes('@')) {
+            this.setState({ errorEmail: "e-mail inválido" })
+            retorno = false
+        }
+        else {
+            this.setState({ errorEmail: "" })
+        }
+        if(this.state.password.length <= 3) {
+            this.setState({ errorPassword: "deve conter mais que 4 caracteres" })
+            retorno = false
+        }
+        else {
+            this.setState({ errorPassword: "" })
+        }
+
+        return retorno
+    }
+
     onLogin = () => {
+        if(!this.onValidation()) return
+
         Axios.post("https://reqres.in/api/login", { email: this.state.username, password: this.state.password }).then(
             resp => {
                 localStorage.setItem('onLogin', true)
@@ -84,9 +109,9 @@ export default class App extends Component {
                         <button onClick={() => this.onLogout() } >Logout</button>
                     </div>
                     <div className={this.state.loggedIn ? 'login-off' : 'login'}>
-                        <h3>E-mail: </h3>
+                        <h3>E-mail: <span className="senha-email-invalido">{this.state.errorEmail}</span></h3>
                         <input type="text" onChange={e => this.onChangeUsername(e) }></input>
-                        <h3>Password: </h3>
+                            <h3>Password: <span className="senha-email-invalido">{this.state.errorPassword}</span></h3>
                         <input type="password" onChange={e => this.onChangePassword(e)}></input>
                         <div className="senha-email-invalido">
                             <h4>{ this.state.failLogin ? "Senha ou e-mail inválido" : "" }</h4>
