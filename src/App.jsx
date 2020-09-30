@@ -48,7 +48,15 @@ export default class App extends Component {
             retorno = false
         }
         else {
-            this.setState({ errorEmail: "" })
+            let left_text = this.state.username.substring(0, this.state.username.indexOf('@'))
+            let right_text = this.state.username.substring(this.state.username.indexOf('@') + 1,  this.state.username.length)
+            if(left_text.length === 0 || right_text.length === 0) {
+                this.setState({ errorEmail: "e-mail inválido" })
+                retorno = false;
+            }
+            else {
+                this.setState({ errorEmail: "" })
+            }
         }
         if(this.state.password.length <= 3) {
             this.setState({ errorPassword: "deve conter mais que 4 caracteres" })
