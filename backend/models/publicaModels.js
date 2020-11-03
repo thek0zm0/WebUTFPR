@@ -2,20 +2,25 @@ import mongoose from 'mongoose'
 
 const publicaSchema = new mongoose.Schema(
     {
-        text: 
+        name: {
+            type: String,
+            unique: true,
+            required: true
+        },
+        text:
         {
             type: String,
             required: true,
         },
-        image:
+        arquivo:
         {
             type: String,
             required: true,
         },
-        video:
+        author: 
         {
             type: String,
-            required: true,
+            required: true
         }
     }
 );

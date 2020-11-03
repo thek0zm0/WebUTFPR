@@ -26,6 +26,22 @@ body
 
 }
 
+.header form {
+	display: flex;
+	justify-content: flex-start;
+	text-align: start;
+	flex-direction: column;
+}
+
+.header label {
+	margin: 4px;
+}
+
+.header input[type = "text"] {
+	text-align: center;
+	margin-bottom: 8px;
+}
+
 .loggedin {
 	display: flex;
 	flex-direction: column;

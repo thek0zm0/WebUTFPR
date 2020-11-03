@@ -6,6 +6,7 @@ import Axios from 'axios'
 import Central from './Components/Central'
 import Bottom from './Components/Bottom'
 import Top from './Components/Top'
+import Posts from './Components/Posts'
 
 export default class App extends Component {
 
@@ -16,7 +17,9 @@ export default class App extends Component {
         loggedIn: false,
         failLogin: false,
         errorEmail: "",
-        errorPassword: ""
+        errorPassword: "",
+        textToSend: "",
+        postName: ""
     }
 
     constructor() {
@@ -28,6 +31,8 @@ export default class App extends Component {
         this.onChangePassword = this.onChangePassword.bind(this)
         this.setLoggedin = this.setLoggedin.bind(this)
         this.onValidation = this.onValidation.bind(this)
+        this.onChangeTextToSend = this.onChangeTextToSend.bind(this)
+        this.onChangePostName = this.onChangePostName.bind(this)
 
         Axios.get("http://localhost:3003/currentuser", {
             withCredentials: true, 
@@ -85,11 +90,9 @@ export default class App extends Component {
             credentials: 'include'
         }).then(
             resp => {
-                localStorage.setItem('onLogin', true)
-                localStorage.setItem('token', resp.data.token)
                 this.setLoggedin(true)
-                this.setState({ token: resp.data.token, failLogin: false })
-                console.log(resp);
+                this.setState({ email: resp.data.user.email, failLogin: false, admin: resp.data.user.admin })
+                console.log(resp.data.user);
             }
         ).catch(
             error => {
@@ -118,7 +121,15 @@ export default class App extends Component {
     }
 
     setLoggedin = (value) => {
-        this.setState({loggedIn: value, admin: value})
+        this.setState({loggedIn: value })
+    }
+
+    onChangeTextToSend (event) {
+        this.setState({ textToSend: event.target.value })
+    }
+
+    onChangePostName (event) {
+        this.setState({ postName: event.target.value })
     }
 
     render() {
@@ -131,8 +142,14 @@ export default class App extends Component {
                         this.state.admin && 
                         <div>
                         <h3>Upload File:</h3>
-                        <form method="POST" action="http://localhost:3003/post" enctype="multipart/form-data">
+                        <form method="POST" action="http://localhost:3003/post" encType="multipart/form-data">
                             <input type="file" name="file"></input>
+                            <label>Name: </label>
+                            <input type="text" name="name" value={this.state.postName} onChange={e => this.onChangePostName(e)}/>
+                            <label>Text: </label>
+                            <input type="text" name="text" value={this.state.textToSend} onChange={e => this.onChangeTextToSend(e)}/>
+                            <label>Author: </label>
+                            <input type="text" name="author" value={this.state.email}></input>
                             <input type="submit" value="enviar"></input>
                         </form>
                     </div>
@@ -160,8 +177,8 @@ export default class App extends Component {
                         </div>
                     </div>
                 </div>
-
                 </header>
+                <Posts></Posts>
                 <Top/>
                 <Central/>
                 <Bottom/>

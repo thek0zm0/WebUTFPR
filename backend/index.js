@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import User from './models/userModels.js'
 import upload from 'express-fileupload'
+import publicaModels from './models/publicaModels.js'
 
 // App config
 const app = express()
@@ -47,6 +48,7 @@ db.once("open", () => {
     })
 })
 
+
 app.use(upload())
 
 app.get('/', (req,res) => 
@@ -54,11 +56,23 @@ app.get('/', (req,res) =>
     res.sendFile(__dirname + '/')
 })
 
+app.get('/post', (req,res) => {
+    publicaModels.find({ name: req.query.name  }, function(err, data) {
+        if(err) {
+            res.status(500).send(err)
+        }
+        else {
+            res.status(200).send(data)
+        }
+    })
+})
+
 app.post('/post', (req,res) => 
 {
     if(req.files)
     {
         console.log(req.files)
+        const { text, author, name } = req.body
         var file = req.files.file
         var filename = file.name
         console.log(filename)
@@ -71,6 +85,12 @@ app.post('/post', (req,res) =>
             }
             else
             {
+                new publicaModels({
+                    name: name,
+                    text: text,
+                    arquivo: './uploads/' + filename,
+                    author: author
+                }).save()
                 res.send("File upado")
             }
         })
@@ -126,7 +146,6 @@ catch (err)
 })
 
 app.get("/login", async(req,res) => {
-    console.log(req.body)
     try
     {
         const email = req.query.email;
@@ -171,7 +190,6 @@ app.get("/login", async(req,res) => {
 })
 
 app.get("/currentuser/", (req,res) => {
-    console.log("qq coisa")
     if(req.cookies && req.cookies.email) {
     const email = decodeURI(req.cookies.email);
     const password = decodeURI(req.cookies.password);
