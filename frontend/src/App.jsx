@@ -178,7 +178,10 @@ export default class App extends Component {
                     </div>
                 </div>
                 </header>
-                <Posts></Posts>
+                {
+                    this.state.loggedIn &&
+                    <Posts></Posts> 
+                }
                 <Top/>
                 <Central/>
                 <Bottom/>
