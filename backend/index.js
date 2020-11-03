@@ -10,6 +10,7 @@ import publicaModels from './models/publicaModels.js'
 
 // App config
 const app = express()
+const PORT = process.env.PORT || 3003
 
 // Middleware
 app.use(cookieParser())
@@ -31,7 +32,7 @@ app.use(bodyParser.urlencoded({
 
 // BD Config
 const connection_url = "mongodb+srv://JoJo555:jojo555@main.1mqom.mongodb.net/<dbname>?retryWrites=true&w=majority"
-mongoose.connect(connection_url, {
+mongoose.connect( connection_url, {
     useCreateIndex:true,
     useNewUrlParser:true,
     useUnifiedTopology:true
@@ -213,4 +214,4 @@ app.delete("/delete", async (req, res) =>
     
 })
 
-app.listen(3003, () => console.log(`The server start on 3003`));
+app.listen(PORT, () => console.log(`The server start on ${PORT}`));
