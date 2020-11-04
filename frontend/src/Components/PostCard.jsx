@@ -12,7 +12,6 @@ export default function (props) {
             <p>{props.text}</p>
             <h3>Arquivo: </h3>
             <p>{arquivo.slice(10)}</p>
-            <button></button>
         </div>
     )
 }

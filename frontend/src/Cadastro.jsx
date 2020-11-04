@@ -63,7 +63,7 @@ export default class Cadastro extends React.Component {
     onCreateAccount = () => {
         if(!this.onValidation()) return
 
-        Axios.post("http://localhost:3003/register", { email: this.state.email, password: this.state.password, admin: this.state.admin }).then(
+        Axios.post("https://utfpr-web.herokuapp.com/register", { email: this.state.email, password: this.state.password, admin: this.state.admin }).then(
             resp => {
                 this.setState({ cadStep: 1})
             }

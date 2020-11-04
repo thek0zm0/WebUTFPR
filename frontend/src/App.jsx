@@ -8,6 +8,8 @@ import Bottom from './Components/Bottom'
 import Top from './Components/Top'
 import Posts from './Components/Posts'
 
+const URL="https://utfpr-web.herokuapp.com/"
+
 export default class App extends Component {
 
     state = {
@@ -24,7 +26,6 @@ export default class App extends Component {
 
     constructor() {
         super()
-
         this.onLogin = this.onLogin.bind(this)
         this.onLogout = this.onLogout.bind(this)
         this.onChangeemail = this.onChangeemail.bind(this)
@@ -34,11 +35,12 @@ export default class App extends Component {
         this.onChangeTextToSend = this.onChangeTextToSend.bind(this)
         this.onChangePostName = this.onChangePostName.bind(this)
 
-        Axios.get("http://localhost:3003/currentuser", {
+        Axios.get(URL + "currentuser", {
             withCredentials: true, 
             credentials: 'include'
         }).then(
             resp => {
+                console.log(resp.data);
                 if(resp.data==="No user")
                 {
                     this.setState({ loggedIn: false})
@@ -85,7 +87,7 @@ export default class App extends Component {
     onLogin = () => {
         if(!this.onValidation()) return
 
-        Axios.get("http://localhost:3003/login/?email=" + this.state.email + "&password=" + this.state.password, {
+        Axios.get(URL + "login/?email=" + this.state.email + "&password=" + this.state.password, {
             withCredentials: true, 
             credentials: 'include'
         }).then(
@@ -103,7 +105,7 @@ export default class App extends Component {
     }
 
     onLogout = () => {
-        Axios.get("http://localhost:3003/logout", {
+        Axios.get(URL + "logout", {
             withCredentials: true, 
             credentials: 'include'
         }).then(response => {
@@ -142,14 +144,14 @@ export default class App extends Component {
                         this.state.admin && 
                         <div>
                         <h3>Upload File:</h3>
-                        <form method="POST" action="http://localhost:3003/post" encType="multipart/form-data">
+                        <form method="POST" action={URL + "post"} encType="multipart/form-data">
                             <input type="file" name="file"></input>
                             <label>Name: </label>
                             <input type="text" name="name" value={this.state.postName} onChange={e => this.onChangePostName(e)}/>
                             <label>Text: </label>
                             <input type="text" name="text" value={this.state.textToSend} onChange={e => this.onChangeTextToSend(e)}/>
                             <label>Author: </label>
-                            <input type="text" name="author" value={this.state.email}></input>
+                            <input type="text" name="author" value={this.state.email} onChange={e => this.onChangeemail(e)}></input>
                             <input type="submit" value="enviar"></input>
                         </form>
                     </div>

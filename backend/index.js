@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 import User from './models/userModels.js'
 import upload from 'express-fileupload'
 import publicaModels from './models/publicaModels.js'
+import session from 'express-session'
 
 // App config
 const app = express()
@@ -27,6 +28,16 @@ app.use(bodyParser.urlencoded({
     parameterLimit: 100000,
     extended: true 
 }));
+
+app.use(session({
+    secret: 'super secret session key',
+    resave: false,
+    saveUninitialized: true,
+    cookie:{
+        httpOnly:false,
+        expires:false
+    }
+}))
 
 // app.use(bodyParser.urlencoded());
 
@@ -51,11 +62,6 @@ db.once("open", () => {
 
 
 app.use(upload())
-
-app.get('/', (req,res) => 
-{
-    res.sendFile(__dirname + '/')
-})
 
 app.get('/post', (req,res) => {
     publicaModels.find({ name: req.query.name  }, function(err, data) {
@@ -164,17 +170,8 @@ app.get("/login", async(req,res) => {
             return res.status(400).json({ msg: "Nenhuma conta com este Login está cadastrada"});
         }
 
-        res.cookie("email", email)
-        res.cookie("password", password)
-        if(user.admin)
-        {
-            res.cookie("admin", "admin")
-        }
-        else
-        {
-            res.clearCookie('admin')
-        }
-
+        req.session.email = email
+        req.session.password = password
         res.json({ 
             user: 
             {
@@ -183,6 +180,7 @@ app.get("/login", async(req,res) => {
                 admin: user.admin
             }
         })
+        res.end()
     }
     catch (err)
     {
@@ -191,9 +189,9 @@ app.get("/login", async(req,res) => {
 })
 
 app.get("/currentuser/", (req,res) => {
-    if(req.cookies && req.cookies.email) {
-    const email = decodeURI(req.cookies.email);
-    const password = decodeURI(req.cookies.password);
+    if(req.session && req.session.email) {
+    const email = decodeURI(req.session.email);
+    const password = decodeURI(req.session.password);
         User.findOne({ email: email, password: password }, function(err,data) {
             if(err) {
                 res.status(500).send(err)
@@ -201,6 +199,7 @@ app.get("/currentuser/", (req,res) => {
             else {
                 res.status(200).send(data)
             }
+            res.end()
         })
     }
     else {
@@ -214,4 +213,4 @@ app.delete("/delete", async (req, res) =>
     
 })
 
-app.listen(PORT, () => console.log(`The server start on ${PORT}`));
+app.listen(process.env.PORT, () => console.log(`The server start D`));
